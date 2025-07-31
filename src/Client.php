@@ -349,17 +349,16 @@ class Client
         $response = $this->request(
             $this->getUrl(self::DIRECTORY_NEW_ACCOUNT),
             $this->signPayloadJWK(
-                [
-                    'onlyReturnExisting' => true,
-                ],
+                ['onlyReturnExisting' => true],
                 $this->getUrl(self::DIRECTORY_NEW_ACCOUNT)
             )
         );
-
         $data = json_decode((string)$response->getBody(), true);
         $accountURL = $response->getHeaderLine('Location');
         $date = (new \DateTime())->setTimestamp(strtotime($data['createdAt']));
-        return new Account($data['contact'], $date, ($data['status'] == 'valid'), $accountURL);
+        $contact = isset($data['contact']) && is_array($data['contact']) ? $data['contact'] : $this->getOption('contact', ['mailto:' . $this->getOption('username')]);
+
+        return new Account($contact, $date, ($data['status'] == 'valid'), $accountURL);
     }
 
     /**
