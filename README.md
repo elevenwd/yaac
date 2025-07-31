@@ -1,3 +1,9 @@
+# desc
+fix new bug at 2025-7-31
+
+Because the origin repository update slow,so I fork one and fix by myself
+由于原仓库更新过慢所以我自己fork了一个仓库修复问题
+
 # yaac - Yet another ACME client
 
 Written in PHP, this client aims to be a simplified and decoupled Let’s Encrypt client, based on [ACME V2](https://tools.ietf.org/html/rfc8555).
